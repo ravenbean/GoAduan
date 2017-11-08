@@ -174,12 +174,12 @@
                     <table id="aduanTable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Age</th>
-                          <th>Start date</th>
-                          <th style="width: 20%">Edit</th>
+                          <th>ID Laporan</th>
+                          <th>Kategori</th>
+                          <th>Tgl Aduan</th>
+                          <th>Nama</th>
+                          <th>Detail</th>
+                          <th>Date Inserted </th>
                         </tr>
                       </thead>
                     </table>
@@ -233,6 +233,14 @@
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     <script>
+      // $.ajax({
+      //   method: "POST",
+      //   url: "source/get_aduan.php"
+      // })
+      // .done(function( msg ) {
+      //   alert( "Data Saved: " + msg );
+      // });
+
       $(document).ready(function() {
         $('#aduanTable').dataTable( {
           "bProcessing": true,

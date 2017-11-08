@@ -12,13 +12,13 @@
 	/* Array of database columns which should be read and sent back to DataTables. Use a space where
 	 * you want to insert a non-database field (for example a counter or static image)
 	 */
-	$aColumns = array( 'engine', 'browser', 'platform', 'version', 'grade' );
+	$aColumns = array( 'id_laporan', 'kategori', 'tgl_aduan', 'nama', 'detail_aduan', 'DateInserted' );
 	
 	/* Indexed column (used for fast and accurate table cardinality) */
-	$sIndexColumn = "id";
+	$sIndexColumn = "id_laporan";
 	
 	/* DB table to use */
-	$sTable = "ajax";
+	$sTable = "public_report";
 	
 	/* Database connection information */
 	$gaSql['user']       = "goaduanc_super";
@@ -117,7 +117,7 @@
 	 * Get data to display
 	 */
 	$sQuery = "
-		SELECT public_report ".str_replace(" , ", " ", implode(", ", $aColumns))."
+		SELECT SQL_CALC_FOUND_ROWS  ".str_replace(" , ", " ", implode(", ", $aColumns))."
 		FROM   $sTable
 		$sWhere
 		$sOrder
