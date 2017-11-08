@@ -179,6 +179,7 @@
                           <th>Tgl Aduan</th>
                           <th>Nama</th>
                           <th>Detail</th>
+                          <th>Status</th>
                           <th>Date Inserted </th>
                           <th></th>
                         </tr>
@@ -204,23 +205,21 @@
       </div>
     </div>
 
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
+    <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-md">
         <div class="modal-content">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabel2">Respon Aduan</h4>
           </div>
           <div class="modal-body">
-            <h4>Text in a modal</h4>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+            <h4>Anda yakin untuk merespon aduan ini?</h4>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="responYaOnClick()">Ya</button>
           </div>
 
         </div>
@@ -264,24 +263,40 @@
       // .done(function( msg ) {
       //   alert( "Data Saved: " + msg );
       // });
-
+      var selectedAduan;
+      var table;
       $(document).ready(function() {
-        var table = $('#aduanTable').DataTable( {
+        table = $('#aduanTable').DataTable( {
           "bProcessing": true,
           "bServerSide": true,
           "sAjaxSource": "source/get_aduan.php",
           "columnDefs": [ {
             "targets": -1,
             "data": null,
-            "defaultContent": "<button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.bs-example-modal-sm'>Respon</button>"
+            "defaultContent": "<button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.bs-example-modal-md'>Respon</button>"
           } ]
         } );
 
         $('#aduanTable tbody').on( 'click', 'button', function () {
           var data = table.row( $(this).parents('tr') ).data();
-          alert( data );
+          selectedAduan = data;
+          // alert( data );
         } );
       } );
+
+      function responYaOnClick(){
+        // alert('tes');
+        // console.log(selectedAduan[0]);
+        $.ajax({
+          method: "POST",
+          url: "source/update_respon.php",
+          data: { idLaporan: selectedAduan[0] }
+        })
+        .done(function( msg ) {
+          console.log('data saved: '+ msg);
+          table.draw();
+        });
+      }
     </script>
   </body>
 </html>
