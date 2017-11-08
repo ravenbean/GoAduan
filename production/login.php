@@ -30,17 +30,17 @@
       <div class="login_wrapper">
         <div>
           <section class="login_content">
-            <form>
+            <form action="source/login.php" method="POST">
               <h1>Web Applikasi Pengaduan Masyarakat</h1>
               <h1>Login</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="Username" name="username" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="Password" name="password" required="" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Log in</a>
+                <a class="btn btn-default submit" type="submit" >Log in</a>
                 <a class="reset_pass" href="#">Lost your password?</a>
               </div>
 
