@@ -180,6 +180,7 @@
                           <th>Nama</th>
                           <th>Detail</th>
                           <th>Date Inserted </th>
+                          <th></th>
                         </tr>
                       </thead>
                     </table>
@@ -203,6 +204,29 @@
       </div>
     </div>
 
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            <h4>Text in a modal</h4>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -214,7 +238,7 @@
     <!-- iCheck -->
     <script src="../vendors/iCheck/icheck.min.js"></script>
     <!-- Datatables -->
-    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
@@ -242,10 +266,20 @@
       // });
 
       $(document).ready(function() {
-        $('#aduanTable').dataTable( {
+        var table = $('#aduanTable').DataTable( {
           "bProcessing": true,
           "bServerSide": true,
-          "sAjaxSource": "source/get_aduan.php"
+          "sAjaxSource": "source/get_aduan.php",
+          "columnDefs": [ {
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.bs-example-modal-sm'>Respon</button>"
+          } ]
+        } );
+
+        $('#aduanTable tbody').on( 'click', 'button', function () {
+          var data = table.row( $(this).parents('tr') ).data();
+          alert( data );
         } );
       } );
     </script>
