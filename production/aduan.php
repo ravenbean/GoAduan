@@ -171,7 +171,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                    <table id="aduanTable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           <th>Name</th>
@@ -182,46 +182,6 @@
                           <th style="width: 20%">Edit</th>
                         </tr>
                       </thead>
-
-
-                      <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
-							<td>
-								<a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-								<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-								<a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-							</td>
-                        </tr>
-                        <tr>
-                          <td>Garrett Winters</td>
-                          <td>Accountant</td>
-                          <td>Tokyo</td>
-                          <td>63</td>
-                          <td>2011/07/25</td>
-							<td>
-								<a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-								<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-								<a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-							</td>
-                        </tr>
-                        <tr>
-                          <td>Ashton Cox</td>
-                          <td>Junior Technical Author</td>
-                          <td>San Francisco</td>
-                          <td>66</td>
-                          <td>2009/01/12</td>
-							<td>
-								<a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-								<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-								<a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-							</td>
-                        </tr>
-                      </tbody>
                     </table>
                   </div>
                 </div>
@@ -272,6 +232,14 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
+    <script>
+      $(document).ready(function() {
+        $('#aduanTable').dataTable( {
+          "bProcessing": true,
+          "bServerSide": true,
+          "sAjaxSource": "source/get_aduan.php"
+        } );
+      } );
+    </script>
   </body>
 </html>
