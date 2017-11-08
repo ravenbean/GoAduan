@@ -34,7 +34,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>GoAduan</span></a>
+              <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>GoAduan</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -130,65 +130,40 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>MANAGE ADUAN <small></small></h3>
+                <h3>REGISTRASI PEJABAT <small></small></h3>
               </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
 
             <div class="clearfix"></div>
 
             <div class="row">
+          <form action="source/register_user.php" method="POST">
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" class="form-control" name="username" required="required">
+            </div>
 
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>List Aduan</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <table id="aduanTable" class="table table-striped table-bordered">
-                      <thead>
-                        <tr>
-                          <th>ID Laporan</th>
-                          <th>Kategori</th>
-                          <th>Tgl Aduan</th>
-                          <th>Nama</th>
-                          <th>Detail</th>
-                          <th>Status</th>
-                          <th>Date Inserted </th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              </div>
+            <div class="form-group">
+              <label for="posisi">Posisi:</label>
+              <select class="form-control" name="posisi">
+                <option>Kepala Daerah</option>
+                <option>Pejabat Daerah</option>
+                <option>Admin</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label name="password">Password:</label>
+              <input type="password" class="form-control" name="password" required="required">
+            </div>
+
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-secondary" style="background-color: #607D8B; color:white;">Simpan </button>
+            </div>
+          </form>
+			  </div>
             </div>
           </div>
         </div>
@@ -205,21 +180,23 @@
       </div>
     </div>
 
-    <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-md">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
         <div class="modal-content">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel2">Respon Aduan</h4>
+            <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
           </div>
           <div class="modal-body">
-            <h4>Anda yakin untuk merespon aduan ini?</h4>
+            <h4>Text in a modal</h4>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="responYaOnClick()">Ya</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
 
         </div>
@@ -255,48 +232,5 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    <script>
-      // $.ajax({
-      //   method: "POST",
-      //   url: "source/get_aduan.php"
-      // })
-      // .done(function( msg ) {
-      //   alert( "Data Saved: " + msg );
-      // });
-      var selectedAduan;
-      var table;
-      $(document).ready(function() {
-        table = $('#aduanTable').DataTable( {
-          "bProcessing": true,
-          "bServerSide": true,
-          "sAjaxSource": "source/get_aduan.php",
-          "columnDefs": [ {
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.bs-example-modal-md'>Respon</button>"
-          } ]
-        } );
-
-        $('#aduanTable tbody').on( 'click', 'button', function () {
-          var data = table.row( $(this).parents('tr') ).data();
-          selectedAduan = data;
-          // alert( data );
-        } );
-      } );
-
-      function responYaOnClick(){
-        // alert('tes');
-        // console.log(selectedAduan[0]);
-        $.ajax({
-          method: "POST",
-          url: "source/update_respon.php",
-          data: { idLaporan: selectedAduan[0] }
-        })
-        .done(function( msg ) {
-          console.log('data saved: '+ msg);
-          table.draw();
-        });
-      }
-    </script>
   </body>
 </html>
