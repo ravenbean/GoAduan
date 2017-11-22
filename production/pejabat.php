@@ -1,3 +1,9 @@
+<?php
+    session_start();
+   if(!isset($_SESSION['username'])){
+    header('Location: ../production/login.php');   
+   }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,7 +40,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>GoAduan</span></a>
+              <a href="aduan.php" class="site_title"><i class="fa fa-paw"></i> <span>GoAduan</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -46,7 +52,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2><?php echo $_SESSION['username'] ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -58,13 +64,9 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="register.php">Registrasi Pejabat</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li>
+                  <li><a href="aduan.php"><i class="fa fa-home"></i> Aduan</a></li>
+                  <li><a href="register.php"><i class="fa fa-users"></i> Registrasi Pejabat</a></li>
+                  <li><a href="programs.php"><i class="fa fa-archive"></i> Program</a></li>
                 </ul>
               </div>
             </div>
@@ -83,7 +85,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt=""><?php echo $_SESSION['username'] ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -95,7 +97,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="source/logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
@@ -130,7 +132,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>MANAGE ADUAN <small></small></h3>
+                <h3>Ranking Aktifitas Pejabat <small></small></h3>
               </div>
 
               <div class="title_right">
@@ -152,7 +154,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>List Aduan</h2>
+                    <h2>List Pejabat</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -174,13 +176,11 @@
                     <table id="aduanTable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>ID Laporan</th>
-                          <th>Kategori</th>
-                          <th>Tgl Aduan</th>
-                          <th>Nama</th>
-                          <th>Detail</th>
-                          <th>Date Inserted </th>
-                          <th></th>
+                          <th>User ID</th>
+                          <th>Username</th>
+                          <th>Status</th>
+                          <th>Posisi</th>
+                          <th>Total Respon</th>
                         </tr>
                       </thead>
                     </table>
@@ -204,23 +204,48 @@
       </div>
     </div>
 
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
+    <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);">
+      <div class="modal-dialog modal-md">
         <div class="modal-content">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabel2">Respon Aduan</h4>
           </div>
           <div class="modal-body">
-            <h4>Text in a modal</h4>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+            <form name="myForm" action="#"
+            onsubmit="return responYaOnClick()" method="post">
+                    <div class="col-sm-12">
+                            <div class="card-block">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="4" name="response" placeholder="Respon" required="required"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-block">
+                                <div class="form-group">
+                                    <label>Status</label>
+
+                                    <select class="select2 select2-hidden-accessible" name="status" tabindex="-1" required="required" aria-hidden="true">
+                                        <option>Tidak Valid</option>
+                                        <option>Sedang diproses</option>
+                                        <option>Selesai</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                          
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <input type="submit" class="btn btn-primary" value="Submit">
+            </form>
+<!--            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="responYaOnClick()">Submit</button>
+-->
           </div>
 
         </div>
@@ -264,24 +289,43 @@
       // .done(function( msg ) {
       //   alert( "Data Saved: " + msg );
       // });
-
+      var selectedAduan;
+      var table;
       $(document).ready(function() {
-        var table = $('#aduanTable').DataTable( {
+        table = $('#aduanTable').DataTable( {
           "bProcessing": true,
           "bServerSide": true,
-          "sAjaxSource": "source/get_aduan.php",
-          "columnDefs": [ {
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.bs-example-modal-sm'>Respon</button>"
-          } ]
+          "sAjaxSource": "source/get_pejabat.php",
+          // "columnDefs": [ {
+          //   "targets": -1,
+          //   "data": null,
+          //   "defaultContent": "<button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.bs-example-modal-md'>Respon</button>"
+          // } ]
         } );
 
-        $('#aduanTable tbody').on( 'click', 'button', function () {
-          var data = table.row( $(this).parents('tr') ).data();
-          alert( data );
-        } );
+        // $('#aduanTable tbody').on( 'click', 'button', function () {
+        //   var data = table.row( $(this).parents('tr') ).data();
+        //   selectedAduan = data;
+        //   // alert( data );
+        // } );
       } );
+
+      function responYaOnClick(){
+         //alert(document.forms["myForm"]["response"].value);
+        // console.log(selectedAduan[0]);
+        var response= document.forms["myForm"]["response"].value;
+        var status= document.forms["myForm"]["status"].value;
+        
+        $.ajax({
+          method: "POST",
+          url: "source/update_respon.php",
+          data: { idLaporan: selectedAduan[0], respon: response , status: status }
+        })
+        .done(function( msg ) {
+          console.log('data saved: '+ msg);
+          table.draw();
+        });
+      }
     </script>
   </body>
 </html>

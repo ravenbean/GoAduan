@@ -1,3 +1,9 @@
+<?php
+    session_start();
+   if(!isset($_SESSION['username'])){
+    header('Location: ../production/login.php');   
+   }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,7 +40,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>GoAduan</span></a>
+              <a href="aduan.php" class="site_title"><i class="fa fa-paw"></i> <span>GoAduan</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -46,7 +52,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2><?php echo $_SESSION['username'] ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -58,13 +64,9 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="register.php">Registrasi Pejabat</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li>
+                  <li><a href="aduan.php"><i class="fa fa-home"></i> Aduan</a></li>
+                  <li><a href="register.php"><i class="fa fa-users"></i> Registrasi Pejabat</a></li>
+                  <li><a href="programs.php"><i class="fa fa-archive"></i> Program</a></li>
                 </ul>
               </div>
             </div>
@@ -83,7 +85,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt=""><?php echo $_SESSION['username'] ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -95,7 +97,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="source/logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 

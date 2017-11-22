@@ -132,7 +132,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>MANAGE ADUAN <small></small></h3>
+                <h3>MANAGE PROGRAM <small></small></h3>
               </div>
 
               <div class="title_right">
@@ -154,7 +154,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>List Aduan</h2>
+                    <h2>List Program</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -173,19 +173,24 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                    <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.addProgram'>Buat Program</button>
                     <table id="aduanTable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>ID Laporan</th>
-                          <th>Kategori</th>
-                          <th>Tgl Aduan</th>
-                          <th>Nama</th>
-                          <th>Detail</th>
-                          <th>Status</th>
-                          <th>Date Inserted </th>
+                          <th>ID Program</th>
+                          <th>Nama Program</th>
+                          <th>Deskripsi</th>
+                          <th>Anggaran Terpakai</th>
+                          <th>Total Anggaran</th>
                           <th></th>
                         </tr>
                       </thead>
+                      <tfoot>
+                          <tr>
+                              <th colspan="4" style="text-align:right">Total:</th>
+                              <th></th>
+                          </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>
@@ -207,53 +212,79 @@
       </div>
     </div>
 
-    <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);">
+    <div class="modal fade bs-example-modal-md addProgram" id='addProgram' tabindex="-1" role="dialog" aria-hidden="true" style="position: absolute;">
       <div class="modal-dialog modal-md">
         <div class="modal-content">
-
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel2">Respon Aduan</h4>
+            <h4 class="modal-title" id="myModalLabel2">Buat Program Baru</h4>
           </div>
           <div class="modal-body">
-            <form name="myForm" action="#"
-            onsubmit="return responYaOnClick()" method="post">
-                    <div class="col-sm-12">
-                            <div class="card-block">
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="4" name="response" placeholder="Respon" required="required"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card-block">
-                                <div class="form-group">
-                                    <label>Status</label>
-
-                                    <select class="select2 select2-hidden-accessible" name="status" tabindex="-1" required="required" aria-hidden="true">
-                                        <option>Tidak Valid</option>
-                                        <option>Sedang diproses</option>
-                                        <option>Selesai</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                          
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <input type="submit" class="btn btn-primary" value="Submit">
+            <form name="myForm" >
+              <div class="col-sm-12">
+                <div class="card-block">
+                  <div class="form-group">
+                    <label>Nama Program</label>
+                    <input type="text" class="form-control" class="namaProgram" id="namaProgram">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="card-block">
+                  <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea class="form-control" rows="4" name="deskripsi" id="deskripsi" placeholder="Deskripsi" required="required"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="card-block">
+                  <div class="form-group">
+                    <label>Total Anggaran</label>
+                    <input type="text" class="form-control" class="totalAnggaran" id="totalAnggaran">
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="button" class="btn btn-primary" value="Submit" data-dismiss="modal" onclick="buatProgram()">
+              </div>
             </form>
-<!--            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="responYaOnClick()">Submit</button>
--->
           </div>
-
         </div>
       </div>
     </div>
+
+
+    <div class="modal fade bs-example-modal-md updateAnggaran" id='updateAnggaran' tabindex="-1" role="dialog" aria-hidden="true" style="position: absolute;">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel2">Update Anggaran Terpakai</h4>
+          </div>
+          <div class="modal-body">
+            <form name="myForm2" >
+              <div class="col-sm-12">
+                <div class="card-block">
+                  <div class="form-group">
+                    <label>Anggaran Terpakai</label>
+                    <input type="number" class="form-control" class="anggaranTerpakai" id="anggaranTerpakai">
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" class="btn btn-primary" data-dismiss="modal"  onclick="updateAnggaran()">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -298,12 +329,56 @@
         table = $('#aduanTable').DataTable( {
           "bProcessing": true,
           "bServerSide": true,
-          "sAjaxSource": "source/get_aduan.php",
+          "language": {
+            "decimal": ",",
+            "thousands": "."
+          },
+          "sAjaxSource": "source/get_program.php",
           "columnDefs": [ {
             "targets": -1,
             "data": null,
-            "defaultContent": "<button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.bs-example-modal-md'>Respon</button>"
-          } ]
+            "defaultContent": "<button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.updateAnggaran'>Update Anggaran</button>"
+          },
+          {
+            "targets": 4,
+            "render": $.fn.dataTable.render.number( '.', '.', 0, 'Rp ' )
+          },
+          {
+            "targets": 3,
+            "render": $.fn.dataTable.render.number( '.', '.', 0, 'Rp ' )
+          }  ],
+          "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 4 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 4, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 4 ).footer() ).html(
+                'Rp '+pageTotal.toLocaleString() +' ( Rp '+ total.toLocaleString() +' total)'
+            );
+          }
         } );
 
         $('#aduanTable tbody').on( 'click', 'button', function () {
@@ -313,16 +388,31 @@
         } );
       } );
 
-      function responYaOnClick(){
+      function buatProgram(){
          //alert(document.forms["myForm"]["response"].value);
         // console.log(selectedAduan[0]);
-        var response= document.forms["myForm"]["response"].value;
-        var status= document.forms["myForm"]["status"].value;
-        
+        var namaProgram= document.forms["myForm"]["namaProgram"].value;
+        var deskripsi= document.forms["myForm"]["deskripsi"].value;
+        var totalAnggaran= document.forms["myForm"]["totalAnggaran"].value;
+
         $.ajax({
           method: "POST",
-          url: "source/update_respon.php",
-          data: { idLaporan: selectedAduan[0], respon: response , status: status }
+          url: "source/add_program.php",
+          data: { namaProgram: namaProgram, deskripsi: deskripsi , totalAnggaran: totalAnggaran }
+        })
+        .done(function( msg ) {
+          console.log('data saved: '+ msg);
+          table.draw();
+        });
+      }
+
+      function updateAnggaran(){
+        var anggaranTerpakai= document.forms["myForm2"]["anggaranTerpakai"].value;
+
+        $.ajax({
+          method: "POST",
+          url: "source/update_anggaran.php",
+          data: { id: selectedAduan[0], anggaranTerpakai: anggaranTerpakai }
         })
         .done(function( msg ) {
           console.log('data saved: '+ msg);
