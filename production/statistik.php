@@ -67,6 +67,8 @@
                   <li><a href="aduan.php"><i class="fa fa-home"></i> Aduan</a></li>
                   <li><a href="register.php"><i class="fa fa-users"></i> Registrasi Pejabat</a></li>
                   <li><a href="programs.php"><i class="fa fa-archive"></i> Program</a></li>
+                  <li><a href="pejabat.php"><i class="fa fa-users"></i> List Pejabat</a></li>
+                  <li><a href="statistik.php"><i class="fa fa-pie-chart"></i> Statistik</a></li>
                 </ul>
               </div>
             </div>
@@ -104,11 +106,12 @@
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green" id="notificationCount">6</span>
+                    <span class="badge bg-green">6</span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
                       <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -131,29 +134,20 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>MANAGE ADUAN <small></small></h3>
+                <h3>STATISTIK <small></small></h3>
               </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
 
             <div class="clearfix"></div>
+              
 
-            <div class="row">
-
+              <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>List Aduan</h2>
+                    <h2>Statistik</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -172,20 +166,44 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <table id="aduanTable" class="table table-striped table-bordered">
-                      <thead>
-                        <tr>
-                          <th>ID Laporan</th>
-                          <th>Kategori</th>
-                          <th>Tgl Aduan</th>
-                          <th>Nama</th>
-                          <th>Detail</th>
-                          <th>Status</th>
-                          <th>Date Inserted </th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                    </table>
+                    <div class="row">
+                <div class="col-md-6">
+                  <canvas id="categoryChart"></canvas>
+                </div>
+                <div class="col-md-6">
+                  <canvas id="locationChart"></canvas>
+                </div>
+              </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Peta Aduan</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <div id="map" style="height: 300px;width: 950px;">
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -206,48 +224,23 @@
       </div>
     </div>
 
-    <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);">
-      <div class="modal-dialog modal-md">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
         <div class="modal-content">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel2">Respon Aduan</h4>
+            <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
           </div>
           <div class="modal-body">
-            <form name="myForm" action="#"
-            onsubmit="return responYaOnClick()" method="post">
-                    <div class="col-sm-12">
-                            <div class="card-block">
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="4" name="response" placeholder="Respon" required="required"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card-block">
-                                <div class="form-group">
-                                    <label>Status</label>
-
-                                    <select class="select2 select2-hidden-accessible" name="status" tabindex="-1" required="required" aria-hidden="true">
-                                        <option>Tidak Valid</option>
-                                        <option>Sedang diproses</option>
-                                        <option>Selesai</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                          
+            <h4>Text in a modal</h4>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <input type="submit" class="btn btn-primary" value="Submit">
-            </form>
-<!--            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="responYaOnClick()">Submit</button>
--->
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
 
         </div>
@@ -280,89 +273,131 @@
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    <script>
-      // $.ajax({
-      //   method: "POST",
-      //   url: "source/get_aduan.php"
-      // })
-      // .done(function( msg ) {
-      //   alert( "Data Saved: " + msg );
-      // });
-      var selectedAduan;
-      var table;
-      $(document).ready(function() {
-        loadNotification();
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Q0MXhukhz3pVX5Jz8oCp30igfqEgNRM&sensor=false&callback=initMap"">
+    </script>
+    <script type="text/javascript">
+      statusChart();
+      locationChart();
 
-        table = $('#aduanTable').DataTable( {
-          "bProcessing": true,
-          "bServerSide": true,
-          "sAjaxSource": "source/get_aduan.php",
-          "columnDefs": [ {
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<button class='btn btn-primary btn-sm' data-toggle='modal' data-target='.bs-example-modal-md'>Respon</button>"
-          } ]
-        } );
-
-        $('#aduanTable tbody').on( 'click', 'button', function () {
-          var data = table.row( $(this).parents('tr') ).data();
-          selectedAduan = data;
-          // alert( data );
-        } );
-      } );
-
-      function responYaOnClick(){
-         //alert(document.forms["myForm"]["response"].value);
-        // console.log(selectedAduan[0]);
-        var response= document.forms["myForm"]["response"].value;
-        var status= document.forms["myForm"]["status"].value;
-        
-        $.ajax({
-          method: "POST",
-          url: "source/update_respon.php",
-          data: { idLaporan: selectedAduan[0], respon: response , status: status }
-        })
-        .done(function( msg ) {
-          console.log('data saved: '+ msg);
-          table.draw();
+      function statusChart()
+      {
+        var ctx = document.getElementById("categoryChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ["Lingkungan", "Kejahatan", "Bencana Alam"],
+            datasets: [{
+              data: [30, 21, 12],
+              backgroundColor: [
+                  getRandomColor(),
+                  getRandomColor(),
+                  getRandomColor(),
+              ]
+            }]
+          }
         });
       }
 
-      function loadNotification(){
-        $.ajax({
-          method: "POST",
-          url: "source/get_aduan.php"
-        })
-        .done(function( msg ) {
-          // console.log('data load: '+ msg);
-          var tempObj = JSON.parse(msg);
-          // console.log('data load: '+ tempObj.aaData[0][5]);
-          var aduan = tempObj.aaData;
-          var notifHtml = '';
-          var totalNotif = 0;
-          for (i in tempObj.aaData) {
-            // console.log(aduan[i][5]);
-            if(aduan[i][5] == ''){
-              var temp1 = '<li><a><span><span>';
-              var temp2 = '</span><span class="time">';
-              var temp3 = '</span></span><span class="message">'
-              var temp4 = '</span></a></li>'
-              var namaPengadu = aduan[i][3];
-              var kategori = aduan[i][1];
-              var detail = aduan[i][4];
-              // console.log(aduan);
-              var tempNotifi = temp1+' '+namaPengadu+' '+temp2+kategori+' '+temp3+' '+detail+' '+temp4;
-              notifHtml = notifHtml+tempNotifi;
-              totalNotif++;
-            }
+      function locationChart()
+      {
+        var ctx = document.getElementById("locationChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ["Jakarta Selatan", "Jakarta Utara", "Jakarta Barat", "Jakarta Timur"],
+            datasets: [{
+              data: [30, 21, 12, 5, 56],
+              backgroundColor: [
+                  getRandomColor(),
+                  getRandomColor(),
+                  getRandomColor(),
+                  getRandomColor(),
+                  getRandomColor(),
+              ]
+            }]
           }
+        });
+      }
+
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    </script>
+    <script type="text/javascript">
+      var markers = [];
+      function initMap() {
+        var myLatLng = {lat: -6.208714, lng: 106.845602};
+
+        var beaches = [
+            ['Perampokan bus TJ', -6.211956425551391, 106.84457203173827, 1],
+            ['Jambret', -6.203082371340937, 106.84946438098143, 1],
+            ['tiang listrik roboh di tabrak mobil', -6.209140636081693, 106.83744808459471, 2],
+        ];
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: myLatLng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+
+        for (var i = 0; i < beaches.length; i++) {
+
+            var newMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(beaches[i][1], beaches[i][2]),
+                map: map,
+                title: beaches[i][0]
+            });
+
+            google.maps.event.addListener(newMarker, 'click', (function (newMarker, i) {
+                return function () {
+                    infowindow.setContent(beaches[i][0]);
+                    infowindow.open(map, newMarker);
+                }
+            })(newMarker, i));
+
+            markers.push(newMarker);
+        }
+
+        /*var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });*/
+      }
+
+      google.maps.event.addDomListener(window, 'load', initMap);
+
+      function getLocation()
+      {
+        $.ajax({
+          type:"POST",
           
-          // console.log(notifHtml);
-          $("#menu1").html(notifHtml);
-          $("#notificationCount").html(totalNotif);
+          url: "soruce/get_location.php",
+          data:{
+            'Status' : 'Get'
+          },
+          beforeSend: function(){
+            
+          },
+          error: function(){
+            alert('Error Fetching Data');
+          },
+          success: function(html){
+            
+          },
+          timeout: 100000
         });
       }
     </script>
